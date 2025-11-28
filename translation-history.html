@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <title>번역 기록 목록 - PolyTalk</title>
+    <link rel="stylesheet" href="polytalk.css">
+    <style>
+        .history-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .history-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: #4682B4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background-color: #3a6a94;
+        }
+
+        .subject-filter {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f5f8fa;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subject-filter label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .subject-filter select {
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .subject-filter input[type="date"] {
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .clear-filter-btn {
+            padding: 8px 16px;
+            background-color: #6b7280;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .clear-filter-btn:hover {
+            background-color: #4b5563;
+        }
+
+        .history-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .history-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px 40px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            border-left: 4px solid #4682B4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 120px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .history-item-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .history-item-title-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+
+        .history-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+        }
+
+        .history-item-delete-btn {
+            background-color: transparent;
+            border: none;
+            color: #999;
+            font-size: 24px;
+            font-weight: 300;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .history-item-delete-btn:hover {
+            background-color: #fee;
+            color: #e53e3e;
+        }
+
+        .history-item-meta {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .history-item-meta div {
+            margin-bottom: 0;
+        }
+
+        .history-item-content {
+            display: none;
+        }
+
+        .history-item-content .translation-pair {
+            margin-bottom: 15px;
+            padding: 12px;
+            background-color: #fafafa;
+            border-radius: 4px;
+        }
+
+        .translation-pair .original {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .translation-pair .translated {
+            font-size: 14px;
+            color: #4682B4;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+        }
+
+        /* 모달 스타일 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 800px;
+            max-height: 80vh;
+            width: 90%;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-header h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .modal-body {
+            margin-top: 20px;
+        }
+
+        .time-info-container {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .time-info-box {
+            flex: 1;
+            padding: 16px;
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .time-info-label {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .time-info-value {
+            font-size: 15px;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .translation-pair {
+            margin-bottom: 15px;
+            padding: 12px;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .translation-pair .translation-time {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 10px;
+            font-weight: 500;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .translation-pair .original {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+            line-height: 1.6;
+        }
+
+        .translation-pair .translated {
+            font-size: 14px;
+            color: #4682B4;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* 여러 언어 번역 표시 스타일 (이미지처럼 한 줄씩) */
+        .translation-lang-line {
+            margin-bottom: 8px;
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .translation-lang-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .translation-lang-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4682B4;
+            margin-right: 4px;
+            display: inline;
+        }
+
+        .translation-lang-text {
+            font-size: 14px;
+            color: #000;
+            line-height: 1.8;
+            display: inline;
+        }
+    </style>
+    <script src="translation-history.js" defer></script>
+</head>
+<body>
+    <div class="lx_app_wrap">
+        <div class="lx_app_header sticky">
+            <div class="brand">
+                <h1 class="logo"><a href="polytalk.html" style="text-decoration: none; display: inline-block;"><img src="logo_ai.png" alt="LX2 AI"></a></h1>
+                <span class="separator-dot"></span>
+                <p class="name">PolyTalk</p>
+            </div>
+            <div class="menu">
+                <a href="polytalk.html" class="back-button">← 돌아가기</a>
+            </div>
+        </div>
+
+        <div class="history-container">
+            <div class="history-header">
+                <h1>번역 기록 목록</h1>
+            </div>
+
+            <div class="subject-filter">
+                <div class="filter-row">
+                    <div class="filter-item">
+                        <label for="subjectFilter">과목 선택:</label>
+                        <select id="subjectFilter">
+                            <option value="all">전체</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="dateFilter">날짜 검색:</label>
+                        <input type="date" id="dateFilter" />
+                    </div>
+                    <div class="filter-item">
+                        <button class="clear-filter-btn" id="clearFilterBtn">필터 초기화</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-list" id="historyList">
+                <!-- 번역 기록이 여기에 동적으로 추가됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 번역 기록 상세 모달 -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">번역 기록 목록</h2>
+                <button class="modal-close" onclick="closeHistoryModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 번역 기록 내용이 여기에 표시됩니다 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

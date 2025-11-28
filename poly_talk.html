@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <title>PolyTalk - LX2AI</title>
+    <link rel="stylesheet" href="polytalk.css">
+    <script src="polytalk.js" defer></script>
+</head>
+<body>
+    <div class="lx_app_wrap">
+        <div class="lx_app_header sticky">
+            <!-- 로고, code, 타이머 -->
+            <div class="brand">
+                <h3 class="logo"><a href="poly_talk.html" style="text-decoration: none; display: inline-block;">AI Translator 강의</a></h3>
+                <button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary qa-toggle-btn-wrapper qa-btn-mobile" type="button" id="qaToggleBtnMobile">
+                    <span class="k-button-text">Q&A</span>
+                    <span class="qa-notification-badge" id="qaNotificationBadgeMobile" style="display: none;">0</span>
+                </button>
+            </div>
+            
+            <div class="menu">
+                <button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary qa-toggle-btn-wrapper qa-btn-desktop" type="button" id="qaToggleBtn">
+                    <span class="k-button-text">Q&A</span>
+                    <span class="qa-notification-badge" id="qaNotificationBadge" style="display: none;">0</span>
+                </button>
+                <div class="room-code-display-inline">
+                    <span class="room-code-label">방 번호:</span>
+                    <span class="room-code-text" id="roomCodeDisplayHeader">-</span>
+                </div>
+                <span class="subject-select-text" id="subjectSelectBtn">
+                    <span id="subjectSelectText">과목 선택</span>
+                </span>
+                <div class="timer">
+                    <span class="k-icon k-font-icon k-i-clock"></span>
+                    <div class="num" id="timer">00:00:00</div>
+                </div>
+            </div>
+            <!-- //로고, code, 타이머 -->
+        </div>
+
+        <!-- 실시간 자막 서비스 -->
+        <div class="lx_app_realtime_caption">
+            <div class="app_header">
+                <!-- 왼쪽: 숨겨진 언어 태그 버튼 영역 -->
+                <div class="app_header-left">
+                    <div class="hidden-languages-bar" id="hiddenLanguagesBar"></div>
+                </div>
+                <!-- 오른쪽: 컨트롤 버튼들 -->
+                <div class="app_header-right">
+                    <div class="lang">
+                        <select id="speakerLanguageCd" name="speakerLanguageCd" style="display: none;">
+                            <option value="ko" data-code="ko" selected>한국어</option>
+                            <option value="null" data-code="null">전체</option>
+                            <option value="en" data-code="en">영어</option>
+                            <option value="zh" data-code="zh">중국어</option>
+                            <option value="ja" data-code="ja">일본어</option>
+                            <option value="es" data-code="es">스페인어</option>
+                        </select>
+                    <button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-secondary" type="button" onclick="showLanguagePopup()">
+                        <span class="k-button-text">언어 설정</span>
+                    </button>
+                        <form id="form-language-update" style="display: none;">
+                            <input type="hidden" name="voiceTranslationSeq" value="">
+                            <input type="checkbox" name="languageCd" value="LANGUAGE::KOREAN" id="languageCd_0">
+                            <input type="checkbox" name="languageCd" value="LANGUAGE::ENGLISH" id="languageCd_1" checked>
+                            <input type="checkbox" name="languageCd" value="LANGUAGE::CHINESE" id="languageCd_2">
+                            <input type="checkbox" name="languageCd" value="LANGUAGE::JAPANESE" id="languageCd_3">
+                        </form>
+                    </div>
+                    <button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary" type="button" id="startBtn" disabled>
+                        <span class="k-button-text">강의 시작</span>
+                    </button>
+                    <button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary " type="button" id="stopBtn" disabled>
+                        <span class="k-button-text">강의 종료</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 재생 바 -->
+            <div class="playback-bar" id="playbackBar" style="display: none;">
+                <div class="playback-controls">
+                    <button class="playback-btn" id="playPauseBtn">
+                        <span class="playback-icon" id="playPauseIcon">⏸</span>
+                    </button>
+                    <div class="playback-time">
+                        <span id="currentTime">00:00</span>
+                        <span class="time-separator">/</span>
+                        <span id="totalTime">00:00</span>
+                    </div>
+                </div>
+                <div class="playback-seek">
+                    <input type="range" class="seek-slider" id="seekSlider" min="0" max="100" value="0">
+                    <div class="seek-progress" id="seekProgress"></div>
+                </div>
+            </div>
+            
+            <!-- 자막 -->
+            <div class="cp_trans" id="cp_trans">
+                <!-- 언어 패널들이 동적으로 생성됩니다 -->
+            </div>
+            <!-- //자막 -->
+            
+            <!-- Q&A 오버레이 -->
+            <div class="qa-overlay" id="qaOverlay"></div>
+            
+            <!-- Q&A 슬라이드 패널 -->
+            <div class="qa-slide-panel" id="qaSlidePanel">
+                <div class="qa-panel-header">
+                    <h3 class="qa-panel-title">Q&A </h3>
+                    <div class="qa-panel-header-buttons">
+                        <button class="qa-mic-toggle-btn" id="qaMicToggleBtn" title="마이크 넘기기">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                            <span class="qa-mic-toggle-text">마이크 넘기기</span>
+                        </button>
+                        <button class="qa-panel-close-btn" id="qaPanelCloseBtn">&times;</button>
+                    </div>
+                </div>
+                <div class="qa-panel-content">
+                    <div class="qa-chat-messages" id="qaChatMessages">
+                        <!-- 채팅 메시지들이 여기에 동적으로 추가됩니다 -->
+                    </div>
+                </div>
+                <div class="qa-panel-footer">
+                    <div class="qa-input-container">
+                        <input type="text" class="qa-input" id="qaInput" placeholder="답변을 입력하세요...">
+                        <button class="qa-voice-btn" id="qaVoiceBtn">
+                            <img src="음성버튼.png" alt="음성 버튼" class="qa-voice-btn-icon">
+                        </button>
+                        <button class="qa-send-btn" id="qaSendBtn">전송</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //실시간 자막 서비스 -->
+        
+        <!-- 번역 기록 섹션 -->
+        <div class="translation-history-section" id="translationHistorySection" style="display: none;">
+            <div class="history-container">
+                <div class="history-header">
+                    <h2 class="history-title">번역 기록</h2>
+                    <button class="history-close-btn" onclick="closeHistorySection()">×</button>
+                </div>
+                <div class="subject-filter">
+                    <label for="subjectFilter">과목 선택:</label>
+                    <select id="subjectFilter">
+                        <option value="all">전체</option>
+                    </select>
+                </div>
+                <div class="history-list" id="historyList">
+                    <!-- 번역 기록이 여기에 동적으로 추가됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 과목 선택 모달 -->
+    <div class="modal-overlay" id="subjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">과목 선택</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- 과목 선택 화면 -->
+                <div class="modal-step" id="subjectStep">
+                    <!-- 교과/비교과 탭 -->
+                    <div class="subject-tabs">
+                        <button class="subject-tab active" data-tab="교과" id="tab교과">교과</button>
+                        <button class="subject-tab" data-tab="비교과" id="tab비교과">비교과</button>
+                    </div>
+                    <p class="modal-description">강의 중 사용할 과목을 선택해주세요.</p>
+                    <div class="subject-list" id="subjectList">
+                        <!-- 과목 목록이 여기에 동적으로 추가됩니다 -->
+                    </div>
+                    <div class="modal-step-footer" style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 12px;">
+                        <button class="language-popup-btn language-popup-btn-cancel" onclick="hideSubjectModal()">취소</button>
+                        <button class="language-popup-btn language-popup-btn-save" id="subjectSaveBtn" onclick="saveSubjectOnly()">저장</button>
+                    </div>
+                </div>
+                
+                <!-- 언어 설정 화면 -->
+                <div class="modal-step" id="languageStep" style="display: none;">
+                    <div class="language-popup-header">
+                        <div class="language-icon-circle">
+                            <span class="language-icon-emoji">🌐</span>
+                        </div>
+                        <h3 class="language-popup-title">언어 설정</h3>
+                        <p class="language-popup-subtitle">원하는 언어를 선택하세요</p>
+                    </div>
+                    
+                    <div class="language-options">
+                        <!-- Input Language Section -->
+                        <div class="language-section">
+                            <label for="subjectModal_inputLanguageCd" class="language-section-label">입력 언어</label>
+                            <div class="language-input-wrapper">
+                                <select id="subjectModal_inputLanguageCd" name="subjectModal_inputLanguageCd" class="language-popup-select">
+                                    <option value="ko" data-code="ko" selected>한국어</option>
+                                    <option value="en" data-code="en">영어</option>
+                                    <option value="zh" data-code="zh">중국어</option>
+                                    <option value="ja" data-code="ja">일본어</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Output Languages Section -->
+                        <div class="language-section">
+                            <label class="language-section-label">번역 언어</label>
+                            <div class="output-languages-grid">
+                                <label for="subjectModal_speakerLanguageCd_1" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::ENGLISH" id="subjectModal_speakerLanguageCd_1" class="language-checkbox" checked>
+                                    <span class="language-option-text">English(영어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_2" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::CHINESE" id="subjectModal_speakerLanguageCd_2" class="language-checkbox">
+                                    <span class="language-option-text">中文(중국어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_3" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::JAPANESE" id="subjectModal_speakerLanguageCd_3" class="language-checkbox">
+                                    <span class="language-option-text">日本語(일본어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_4" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::VIETNAMESE" id="subjectModal_speakerLanguageCd_4" class="language-checkbox">
+                                    <span class="language-option-text">Tiếng Việt(베트남어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_5" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::UZBEK" id="subjectModal_speakerLanguageCd_5" class="language-checkbox">
+                                    <span class="language-option-text">O'zbek(우즈베크어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_6" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::MONGOLIAN" id="subjectModal_speakerLanguageCd_6" class="language-checkbox">
+                                    <span class="language-option-text">Монгол(몽골어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_7" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::INDONESIAN" id="subjectModal_speakerLanguageCd_7" class="language-checkbox">
+                                    <span class="language-option-text">Bahasa Indonesia(인도네시아어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_8" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::NEPALI" id="subjectModal_speakerLanguageCd_8" class="language-checkbox">
+                                    <span class="language-option-text">नेपाली(네팔어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_9" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::RUSSIAN" id="subjectModal_speakerLanguageCd_9" class="language-checkbox">
+                                    <span class="language-option-text">Русский(러시아어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_10" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::THAI" id="subjectModal_speakerLanguageCd_10" class="language-checkbox">
+                                    <span class="language-option-text">ไทย(태국어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_11" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::KHMER" id="subjectModal_speakerLanguageCd_11" class="language-checkbox">
+                                    <span class="language-option-text">ភាសាខ្មែរ(캄보디아어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_12" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::KAZAKH" id="subjectModal_speakerLanguageCd_12" class="language-checkbox">
+                                    <span class="language-option-text">Қазақ(카자흐어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_13" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::KYRGYZ" id="subjectModal_speakerLanguageCd_13" class="language-checkbox">
+                                    <span class="language-option-text">Кыргызча(키르기스어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_14" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::MYANMAR" id="subjectModal_speakerLanguageCd_14" class="language-checkbox">
+                                    <span class="language-option-text">မြန်မာ(미얀마어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_15" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::ARABIC" id="subjectModal_speakerLanguageCd_15" class="language-checkbox">
+                                    <span class="language-option-text">العربية(아랍어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_16" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::HINDI" id="subjectModal_speakerLanguageCd_16" class="language-checkbox">
+                                    <span class="language-option-text">हिन्दी(힌디어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_17" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::PASHTO" id="subjectModal_speakerLanguageCd_17" class="language-checkbox">
+                                    <span class="language-option-text">پښتو(파슈토어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_18" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::FILIPINO" id="subjectModal_speakerLanguageCd_18" class="language-checkbox">
+                                    <span class="language-option-text">Filipino(필리핀어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_19" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::FRENCH" id="subjectModal_speakerLanguageCd_19" class="language-checkbox">
+                                    <span class="language-option-text">Français(프랑스어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_20" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::SPANISH" id="subjectModal_speakerLanguageCd_20" class="language-checkbox">
+                                    <span class="language-option-text">Español(스페인어)</span>
+                                </label>
+                                <label for="subjectModal_speakerLanguageCd_21" class="language-option-card">
+                                    <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::BENGALI" id="subjectModal_speakerLanguageCd_21" class="language-checkbox">
+                                    <span class="language-option-text">বাংলা(벵골어)</span>
+                                </label>
+                            </div>
+                            <p class="language-limit-notice" style="margin-top: 10px; font-size: 12px; color: #666;">최대 3개까지 선택 가능합니다.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-step-footer">
+                        <button class="language-popup-btn language-popup-btn-cancel" onclick="goBackToSubjectStep()">이전</button>
+                        <button class="language-popup-btn language-popup-btn-save" onclick="saveSubjectAndLanguageSettings()">저장</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 번역 기록 저장 완료 알림 -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <!-- 저장 중/완료 팝업 -->
+    <div class="save-popup-overlay" id="savePopupOverlay" style="display: none;">
+        <div class="save-popup-content">
+            <div class="save-popup-icon" id="savePopupIcon">
+                <div class="loading-dots" id="loadingDots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="save-complete-icon" id="saveCompleteIcon" style="display: none;">✓</div>
+            </div>
+            <div class="save-popup-message" id="savePopupMessage">번역 기록을 저장하는 중입니다</div>
+            <div class="save-popup-button-container" id="savePopupButtonContainer" style="display: none;">
+                <button class="save-popup-confirm-btn" id="savePopupConfirmBtn" onclick="closeSavePopup()">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Code 모달 -->
+    <div class="modal-overlay" id="roomCodeModal">
+        <div class="modal-content room-code-popup">
+            <h2 class="room-code-title">Room Code</h2>
+            <div class="room-code-display" id="roomCodeDisplay">
+                <!-- 랜덤 코드가 여기에 표시됩니다 -->
+            </div>
+            <p class="room-code-instruction">Share this code with participants</p>
+            <button class="room-code-close-btn" onclick="closeRoomCodeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Language Settings 모달 -->
+    <div class="modal-overlay" id="languageModal">
+        <div class="modal-content language-popup">
+            <div class="language-popup-header">
+                <div class="language-icon-circle">
+                    <span class="language-icon-emoji">🌐</span>
+                </div>
+                <h3 class="language-popup-title">언어 설정</h3>
+                <p class="language-popup-subtitle">원하는 언어를 선택하세요</p>
+            </div>
+            
+            <div class="language-options">
+                <!-- Input Language Section -->
+                <div class="language-section">
+                    <label for="popup_inputLanguageCd" class="language-section-label">입력 언어</label>
+                    <div class="language-input-wrapper">
+                        <select id="popup_inputLanguageCd" name="popup_inputLanguageCd" class="language-popup-select">
+                            <option value="ko" data-code="ko" selected>한국어</option>
+                            <option value="en" data-code="en">영어</option>
+                            <option value="zh" data-code="zh">중국어</option>
+                            <option value="ja" data-code="ja">일본어</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Output Languages Section -->
+                <div class="language-section">
+                    <label class="language-section-label">출력 언어</label>
+                    <div class="output-languages-grid">
+                        <label for="popup_speakerLanguageCd_1" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::ENGLISH" id="popup_speakerLanguageCd_1" class="language-checkbox" checked>
+                            <span class="language-option-text">English(영어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_2" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::CHINESE" id="popup_speakerLanguageCd_2" class="language-checkbox">
+                            <span class="language-option-text">中文(중국어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_3" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::JAPANESE" id="popup_speakerLanguageCd_3" class="language-checkbox">
+                            <span class="language-option-text">日本語(일본어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_4" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::VIETNAMESE" id="popup_speakerLanguageCd_4" class="language-checkbox">
+                            <span class="language-option-text">Tiếng Việt(베트남어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_5" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::UZBEK" id="popup_speakerLanguageCd_5" class="language-checkbox">
+                            <span class="language-option-text">O'zbek(우즈베크어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_6" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::MONGOLIAN" id="popup_speakerLanguageCd_6" class="language-checkbox">
+                            <span class="language-option-text">Монгол(몽골어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_7" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::INDONESIAN" id="popup_speakerLanguageCd_7" class="language-checkbox">
+                            <span class="language-option-text">Bahasa Indonesia(인도네시아어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_8" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::NEPALI" id="popup_speakerLanguageCd_8" class="language-checkbox">
+                            <span class="language-option-text">नेपाली(네팔어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_9" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::RUSSIAN" id="popup_speakerLanguageCd_9" class="language-checkbox">
+                            <span class="language-option-text">Русский(러시아어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_10" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::THAI" id="popup_speakerLanguageCd_10" class="language-checkbox">
+                            <span class="language-option-text">ไทย(태국어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_11" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::KHMER" id="popup_speakerLanguageCd_11" class="language-checkbox">
+                            <span class="language-option-text">ភាសាខ្មែរ(캄보디아어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_12" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::KAZAKH" id="popup_speakerLanguageCd_12" class="language-checkbox">
+                            <span class="language-option-text">Қазақ(카자흐어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_13" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::KYRGYZ" id="popup_speakerLanguageCd_13" class="language-checkbox">
+                            <span class="language-option-text">Кыргызча(키르기스어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_14" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::MYANMAR" id="popup_speakerLanguageCd_14" class="language-checkbox">
+                            <span class="language-option-text">မြန်မာ(미얀마어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_15" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::ARABIC" id="popup_speakerLanguageCd_15" class="language-checkbox">
+                            <span class="language-option-text">العربية(아랍어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_16" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::HINDI" id="popup_speakerLanguageCd_16" class="language-checkbox">
+                            <span class="language-option-text">हिन्दी(힌디어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_17" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::PASHTO" id="popup_speakerLanguageCd_17" class="language-checkbox">
+                            <span class="language-option-text">پښتو(파슈토어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_18" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::FILIPINO" id="popup_speakerLanguageCd_18" class="language-checkbox">
+                            <span class="language-option-text">Filipino(필리핀어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_19" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::FRENCH" id="popup_speakerLanguageCd_19" class="language-checkbox">
+                            <span class="language-option-text">Français(프랑스어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_20" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::SPANISH" id="popup_speakerLanguageCd_20" class="language-checkbox">
+                            <span class="language-option-text">Español(스페인어)</span>
+                        </label>
+                        <label for="popup_speakerLanguageCd_21" class="language-option-card">
+                            <input type="checkbox" name="popup_speakerLanguageCd" value="LANGUAGE::BENGALI" id="popup_speakerLanguageCd_21" class="language-checkbox">
+                            <span class="language-option-text">বাংলা(벵골어)</span>
+                        </label>
+                    </div>
+                    <p class="language-limit-notice" style="margin-top: 10px; font-size: 12px; color: #666;">최대 3개까지 선택 가능합니다.</p>
+                </div>
+            </div>
+            
+            <div class="language-popup-footer">
+                <button class="language-popup-btn language-popup-btn-save" onclick="saveLanguageSettings()">저장</button>
+                <button class="language-popup-btn language-popup-btn-cancel" onclick="closeLanguageModal()">취소</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

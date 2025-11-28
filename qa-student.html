@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A 질문하기 - CJU-EDELWEIS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header class="top-header">
+        <div class="container">
+            <div class="logo-section">
+                <img src="img/logo_wave.png" alt="청주대학교">
+            </div>
+            <nav class="top-nav">
+                <a href="#">최미나님 방문을 환영합니다</a>
+                <span class="divider">|</span>
+                <a href="#">MY PAGE</a>
+                <span class="divider">|</span>
+                <a href="#">로그아웃</a>
+                <span class="divider">|</span>
+                <a href="#">사용자 가이드</a>
+                <span class="divider">|</span>
+                <a href="#">Language</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 네비게이션 -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo_edel.png" alt="EDELWEIS">
+            </div>
+            <ul class="menu">
+                <li><a href="index.html">소개</a></li>
+                <li><a href="index.html">MY PAGE</a></li>
+                <li><a href="index.html">COUNSEL/CAIR</a></li>
+                <li><a href="index.html">CJ MOOC</a></li>
+                <li><a href="index.html">OER</a></li>
+                <li><a href="index.html">OCW</a></li>
+                <li><a href="qa-professor.html">Q&A</a></li>
+                <li><a href="index.html">대학일자리플러스센터</a></li>
+                <li><a href="index.html">Meta-Life,CJU</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero 섹션 (배경 이미지 + 4개 박스) -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-grid">
+                <!-- 1. 교수 프로필 -->
+                <div class="profile-box">
+                    <div class="profile-bg">
+                        <div class="profile-dept">교직과</div>
+                        <div class="profile-photo">
+                            <img src="img/교수프로필.png" alt="교수 프로필">
+                        </div>
+                        <div class="profile-name">최미나 <span>교수</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. 상담·지도 관리현황 -->
+                <div class="counsel-box">
+                    <div class="box-header blue">
+                        <h3>상담 · 지도 관리현황</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="counsel-tabs">
+                        <button class="ctab active">전체</button>
+                        <button class="ctab">1학년</button>
+                        <button class="ctab">2학년</button>
+                        <button class="ctab">3학년</button>
+                        <button class="ctab">4학년</button>
+                    </div>
+                    <div class="counsel-items">
+                        <div class="counsel-item">
+                            <span class="label">상담 미실시자</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">상담완료</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">방문예약 상담</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">온라인 답변 요청</span>
+                            <span class="value red">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 달력 -->
+                <div class="calendar-box">
+                    <div class="calendar-controls">
+                        <button class="cal-nav" id="prevMonth">‹</button>
+                        <h3 class="cal-month" id="currentMonth">2025. 11</h3>
+                        <button class="cal-nav" id="nextMonth">›</button>
+                        <button class="cal-menu">☰</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="cal-header">
+                            <div class="cal-day sun">SUN</div>
+                            <div class="cal-day">MON</div>
+                            <div class="cal-day">TUE</div>
+                            <div class="cal-day">WED</div>
+                            <div class="cal-day">THU</div>
+                            <div class="cal-day">FRI</div>
+                            <div class="cal-day sat">SAT</div>
+                        </div>
+                        <div class="cal-body" id="calendarDays"></div>
+                    </div>
+                </div>
+
+                <!-- 4. 공지사항 -->
+                <div class="notice-box">
+                    <div class="box-header blue">
+                        <h3>공지사항</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="notice-items">
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 02분반(조기취업자) 사이버…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 사이버강의 기말고사 시험…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2학기 학과 체험 프로그램…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.13</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025학년도 전공탐색 설명회 안내</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.10</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">[정상복구] 실시간 비대면 학습(w…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.06</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하단 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <style>
+                .qa-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 30px 20px;
+                }
+
+        .qa-header {
+            margin-bottom: 30px;
+        }
+
+        .qa-header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .qa-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .question-form-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .language-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .auto-detect-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .question-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .question-textarea:focus {
+            outline: none;
+            border-color: #3682D7;
+        }
+
+        .translation-preview {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #3682D7;
+        }
+
+        .translation-preview-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .translation-preview-text {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .submit-btn {
+            background: #3682D7;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #2a6bb5;
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .questions-list {
+            margin-top: 40px;
+        }
+
+        .question-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .question-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .question-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-answered {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .question-content {
+            margin-bottom: 15px;
+        }
+
+        .question-original {
+            margin-bottom: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .question-translated {
+            padding: 12px;
+            background: #e3f2fd;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+            border-left: 3px solid #3682D7;
+        }
+
+        .answer-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .answer-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 6px;
+            border-left: 3px solid #4caf50;
+        }
+
+        .answer-original {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .answer-translated {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            font-style: italic;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .translation-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3682D7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="qa-container">
+        <div class="qa-header">
+            <h1>Q&A 질문하기</h1>
+            <p class="qa-subtitle">자신의 언어로 질문을 작성하시면 자동으로 한국어로 번역되어 교수자에게 전달됩니다.</p>
+        </div>
+
+        <!-- 질문 작성 폼 -->
+        <div class="question-form-card">
+            <form id="questionForm">
+                <div class="form-group">
+                    <label>질문 언어 선택</label>
+                    <div class="language-select-wrapper">
+                        <select class="language-select" id="questionLang">
+                            <option value="auto">자동 감지</option>
+                            <option value="ko">한국어</option>
+                            <option value="en">영어</option>
+                            <option value="zh" selected>중국어</option>
+                            <option value="ja">일본어</option>
+                            <option value="vi">베트남어</option>
+                        </select>
+                        <span class="auto-detect-badge" id="detectedLang" style="display: none;">감지됨: 중국어</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>질문 내용 <span style="color: red;">*</span></label>
+                    <textarea 
+                        class="question-textarea" 
+                        id="questionText" 
+                        placeholder="질문을 입력하세요..."
+                        required
+                    ></textarea>
+                    <div class="translation-preview" id="translationPreview" style="display: none;">
+                        <div class="translation-preview-label">한국어 번역 미리보기:</div>
+                        <div class="translation-preview-text" id="previewText"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    질문 등록
+                    <span class="loading-spinner" id="submitSpinner" style="display: none;"></span>
+                </button>
+            </form>
+        </div>
+
+        <!-- 질문 목록 -->
+        <div class="questions-list">
+            <h2 style="font-size: 20px; margin-bottom: 20px; color: #333;">내 질문 목록</h2>
+            
+            <div class="question-item">
+                <div class="question-item-header">
+                    <div>
+                        <div class="question-meta">
+                            <span>2025.11.20 14:30</span>
+                            <span>컴퓨터공학개론</span>
+                            <span class="translation-badge">중국어 → 한국어</span>
+                        </div>
+                    </div>
+                    <span class="question-status status-answered">답변 완료</span>
+                </div>
+                <div class="question-content">
+                    <div class="question-original">
+                        <strong>원문:</strong> 我不知道下周的作业应该怎么做。
+                    </div>
+                    <div class="question-translated">
+                        <strong>번역:</strong> 다음 주 과제를 어떻게 해야 할지 모르겠어요.
+                    </div>
+                </div>
+                <div class="answer-section">
+                    <div class="answer-label">
+                        교수자 답변
+                        <span class="translation-badge">한국어 → 중국어</span>
+                    </div>
+                    <div class="answer-content">
+                        <div class="answer-original">
+                            <strong>원문:</strong> 과제에 대해 자세히 설명해드리겠습니다. 먼저 과제 주제를 확인해보겠습니다.
+                        </div>
+                        <div class="answer-translated">
+                            <strong>번역:</strong> 我会详细解释作业。首先让我确认一下作业主题。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <div class="question-item-header">
+                    <div>
+                        <div class="question-meta">
+                            <span>2025.11.18 10:15</span>
+                            <span>데이터구조</span>
+                            <span class="translation-badge">영어 → 한국어</span>
+                        </div>
+                    </div>
+                    <span class="question-status status-pending">답변 대기</span>
+                </div>
+                <div class="question-content">
+                    <div class="question-original">
+                        <strong>원문:</strong> Can you explain the difference between stack and queue?
+                    </div>
+                    <div class="question-translated">
+                        <strong>번역:</strong> 스택과 큐의 차이점을 설명해주실 수 있나요?
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </main>
+
+    <!-- TOP 버튼 -->
+    <button class="top-button" id="topBtn">
+        <div>▲</div>
+        <div>TOP</div>
+    </button>
+
+    <script>
+        // 언어 자동 감지 (시뮬레이션)
+        const questionText = document.getElementById('questionText');
+        const questionLang = document.getElementById('questionLang');
+        const detectedLang = document.getElementById('detectedLang');
+        const translationPreview = document.getElementById('translationPreview');
+        const previewText = document.getElementById('previewText');
+        const questionForm = document.getElementById('questionForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitSpinner = document.getElementById('submitSpinner');
+
+        // 간단한 번역 시뮬레이션
+        function translateText(text, fromLang, toLang) {
+            const translations = {
+                '我不知道下周的作业应该怎么做。': '다음 주 과제를 어떻게 해야 할지 모르겠어요.',
+                'Can you explain the difference between stack and queue?': '스택과 큐의 차이점을 설명해주실 수 있나요?',
+                '알고리즘': 'Algorithm',
+                '컴퓨터공학': 'Computer Science'
+            };
+            
+            if (translations[text]) {
+                return translations[text];
+            }
+            
+            // 기본 번역 시뮬레이션
+            return `[번역: ${text}]`;
+        }
+
+        // 언어 자동 감지
+        questionText.addEventListener('input', () => {
+            const text = questionText.value.trim();
+            if (text.length > 10 && questionLang.value === 'auto') {
+                // 간단한 언어 감지 시뮬레이션
+                let detected = 'ko';
+                if (/[\u4e00-\u9fff]/.test(text)) detected = 'zh';
+                else if (/^[a-zA-Z\s]+$/.test(text)) detected = 'en';
+                else if (/[\u3040-\u309f\u30a0-\u30ff]/.test(text)) detected = 'ja';
+                
+                if (detected !== 'ko') {
+                    detectedLang.textContent = `감지됨: ${detected === 'zh' ? '중국어' : detected === 'en' ? '영어' : '일본어'}`;
+                    detectedLang.style.display = 'inline-block';
+                } else {
+                    detectedLang.style.display = 'none';
+                }
+            }
+        });
+
+        // 실시간 번역 미리보기
+        let previewTimeout;
+        questionText.addEventListener('input', () => {
+            clearTimeout(previewTimeout);
+            const text = questionText.value.trim();
+            
+            if (text.length > 5) {
+                previewTimeout = setTimeout(() => {
+                    const lang = questionLang.value === 'auto' ? 'zh' : questionLang.value;
+                    const translated = translateText(text, lang, 'ko');
+                    previewText.textContent = translated;
+                    translationPreview.style.display = 'block';
+                }, 500);
+            } else {
+                translationPreview.style.display = 'none';
+            }
+        });
+
+        // 질문 제출
+        questionForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const question = questionText.value.trim();
+            const lang = questionLang.value === 'auto' ? 'zh' : questionLang.value;
+            
+            if (!question) {
+                alert('질문을 입력해주세요.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitSpinner.style.display = 'inline-block';
+
+            // 번역 API 호출 시뮬레이션
+            setTimeout(() => {
+                const translated = translateText(question, lang, 'ko');
+                
+                // 성공 메시지
+                alert('질문이 등록되었습니다. 교수자에게 한국어로 번역되어 전달됩니다.');
+                
+                // 폼 초기화
+                questionText.value = '';
+                translationPreview.style.display = 'none';
+                detectedLang.style.display = 'none';
+                submitBtn.disabled = false;
+                submitSpinner.style.display = 'none';
+                
+                // 페이지 새로고침 (실제로는 목록 업데이트)
+                // location.reload();
+            }, 1500);
+        });
+
+        // 달력 렌더링
+        let currentDate = new Date(2025, 10, 1);
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            document.getElementById('currentMonth').textContent = `${year}. ${String(month + 1).padStart(2, '0')}`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+            
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day empty';
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateEl = document.createElement('div');
+                dateEl.className = 'calendar-day';
+                dateEl.textContent = day;
+                calendarDays.appendChild(dateEl);
+            }
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        renderCalendar();
+
+        // TOP 버튼
+        const topBtn = document.getElementById('topBtn');
+        if (topBtn) {
+            topBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    topBtn.style.display = 'flex';
+                } else {
+                    topBtn.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

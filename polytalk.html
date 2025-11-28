@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyTalk 다국어 상담 - CJU-EDELWEIS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 하단 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- PolyTalk 다국어 상담 섹션 -->
+            <section class="polytalk-content-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">다국어 <span class="blue-text">상담</span></h2>
+                </div>
+                <div class="polytalk-main-layout">
+                    <!-- 상태 메시지 오버레이 -->
+                    <div class="status-message-overlay" id="statusMessageOverlay" style="display: none;">
+                        <div class="status-message-box">
+                            <div class="status-message-icon">✓</div>
+                            <div class="status-message-text" id="statusMessageText">상담이 종료됩니다</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 채팅 영역 -->
+                    <div class="chat-panel">
+                        <div class="chat-header">
+                            <div class="language-select-header">
+                                <label>학생 언어:</label>
+                                <select id="studentLang">
+                                    <option value="ko">한국어</option>
+                                    <option value="en">영어</option>
+                                    <option value="ja">일본어</option>
+                                    <option value="zh" selected>중국어</option>
+                                    <option value="vi">베트남어</option>
+                                    <option value="es">스페인어</option>
+                                    <option value="uz">우즈베크어</option>
+                                    <option value="mn">몽골어</option>
+                                    <option value="id">인도네시아어</option>
+                                    <option value="ne">네팔어</option>
+                                    <option value="ru">러시아어</option>
+                                    <option value="th">태국어</option>
+                                    <option value="km">캄보디아어</option>
+                                    <option value="kk">카자흐어</option>
+                                    <option value="ky">키르기스어</option>
+                                    <option value="my">미얀마어</option>
+                                    <option value="ar">아랍어</option>
+                                    <option value="hi">힌디어</option>
+                                    <option value="ps">파슈토어</option>
+                                    <option value="fil">필리핀어</option>
+                                    <option value="fr">프랑스어</option>
+                                    <option value="bn">벵골어</option>
+                                </select>
+                                <label>교수자 언어:</label>
+                                <select id="studentLang">
+                                    <option value="ko">한국어</option>
+                                    <option value="en">영어</option>
+                                    <option value="ja">일본어</option>
+                                    <option value="zh" selected>중국어</option>
+                                    <option value="vi">베트남어</option>
+                                </select>
+                            </div>
+                            
+                            <div class="header-right">
+                                <button class="mic-status-btn" id="micStatusBtn" title="음성 입력">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                                    </svg>
+                                </button>
+                                <div class="translation-status">
+                                    <span class="status-dot"></span>
+                                    <span class="status-text">실시간 번역중</span>
+                                </div>
+                                <button class="end-counsel-btn" id="endCounselBtn">상담 종료</button>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-message student">
+                                <div class="message-bubble student">
+                                    <div class="message-time">14:30</div>
+                                    <div class="message-original">老师您好!</div>
+                                    <div class="message-translated">안녕하세요, 선생님!</div>
+                                </div>
+                            </div>
+                            <div class="chat-message professor">
+                                <div class="message-bubble professor">
+                                    <div class="message-time">14:30</div>
+                                    <div class="message-original">안녕하세요! 무엇을 도와드릴까요?</div>
+                                    <div class="message-translated">你好!有什么可以帮你的吗?</div>
+                                </div>
+                            </div>
+                            <div class="chat-message student">
+                                <div class="message-bubble student">
+                                    <div class="message-time">14:31</div>
+                                    <div class="message-original">我不知道下周的作业应该怎么做。</div>
+                                    <div class="message-translated">다음 주 과제를 어떻게 해야 할지 모르겠어요.</div>
+                                </div>
+                            </div>
+                            <div class="chat-message professor">
+                                <div class="message-bubble professor">
+                                    <div class="message-time">14:31</div>
+                                    <div class="message-original">과제에 대해 자세히 설명해드리겠습니다. 먼저 과제 주제를 확인해보겠습니다.</div>
+                                    <div class="message-translated">我会详细解释作业。首先让我确认一下作业主题。</div>
+                                </div>
+                            </div>
+                            <div class="chat-message student">
+                                <div class="message-bubble student">
+                                    <div class="message-time">14:32</div>
+                                    <div class="message-original">谢谢!</div>
+                                    <div class="message-translated">감사합니다!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-bottom">
+                            <button class="voice-btn" id="voiceBtn" title="음성 입력">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                                </svg>
+                            </button>
+                            <input type="text" class="chat-input-main" id="chatInput" placeholder="메시지를 입력하거나 음성 버튼을 누르세요" maxlength="500">
+                            <button class="send-btn-main" id="sendBtn">전송</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+
+        // 학생 정보 데이터 (실제로는 서버에서 가져와야 함)
+        const countryMap = {
+            '대한민국': { flag: '🇰🇷', code: '+82', lang: '한국어', langFlag: '🇰🇷', langCode: 'ko' },
+            '중국': { flag: '🇨🇳', code: '+86', lang: '简体中文', langFlag: '🇨🇳', langCode: 'zh' },
+            '베트남': { flag: '🇻🇳', code: '+84', lang: 'Tiếng Việt', langFlag: '🇻🇳', langCode: 'vi' },
+            '일본': { flag: '🇯🇵', code: '+81', lang: '日本語', langFlag: '🇯🇵', langCode: 'ja' },
+            '미국': { flag: '🇺🇸', code: '+1', lang: 'English', langFlag: '🇺🇸', langCode: 'en' }
+        };
+        
+        const studentData = {
+            '김민수': { id: '20210101', phone: '010-1234-5678', country: '대한민국' },
+            '이지은': { id: '20220202', phone: '010-2345-6789', country: '대한민국' },
+            '박준호': { id: '20210303', phone: '010-3456-7890', country: '대한민국' },
+            'Li Wei': { id: '20220404', phone: '010-4567-8901', country: '중국' },
+            'Nguyen Van A': { id: '20210505', phone: '010-5678-9012', country: '베트남' }
+        };
+
+        // URL 파라미터에서 학생 정보 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentName = urlParams.get('name') || '-';
+        const studentId = urlParams.get('id') || '-';
+        const studentCountry = urlParams.get('country') || '대한민국';
+        
+        // 학생 정보 표시
+        const studentInfo = studentData[studentName] || { 
+            id: studentId, 
+            phone: '-', 
+            country: studentCountry
+        };
+        
+        const countryInfo = countryMap[studentInfo.country] || countryMap['대한민국'];
+        const student = {
+            ...studentInfo,
+            ...countryInfo
+        };
+        
+        // 학생 언어 선택 자동 설정
+        const studentLangSelect = document.getElementById('studentLang');
+        if (studentLangSelect && student.langCode) {
+            studentLangSelect.value = student.langCode;
+        }
+        
+        // 학생 프로필 이미지 설정 (이미 HTML에 설정되어 있으므로 필요시 동적으로 변경 가능)
+        // const studentAvatar = document.getElementById('studentAvatar');
+        // studentAvatar.src = 'img/학생프로필.png';
+        
+        // 현재 시간 표시
+        const now = new Date();
+        const timeString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        
+        
+        // 간단한 번역 시뮬레이션
+        function translateText(text, fromLang, toLang) {
+            if (fromLang === toLang) return null;
+            
+            // 실제로는 번역 API를 사용해야 합니다
+            // 여기서는 간단한 예시만 제공
+            const translations = {
+                '안녕하세요': { en: 'Hello', zh: '你好', ja: 'こんにちは', vi: 'Xin chào' },
+                '감사합니다': { en: 'Thank you', zh: '谢谢', ja: 'ありがとう', vi: 'Cảm ơn' },
+                '네': { en: 'Yes', zh: '是', ja: 'はい', vi: 'Vâng' },
+                '你好': { ko: '안녕하세요', en: 'Hello', ja: 'こんにちは', vi: 'Xin chào' },
+                '谢谢': { ko: '감사합니다', en: 'Thank you', ja: 'ありがとう', vi: 'Cảm ơn' },
+                '老师您好!': { ko: '안녕하세요, 선생님!', en: 'Hello, teacher!', ja: 'こんにちは、先生！', vi: 'Xin chào, thầy giáo!' },
+                '안녕하세요, 선생님!': { zh: '老师您好!', en: 'Hello, teacher!', ja: 'こんにちは、先生！', vi: 'Xin chào, thầy giáo!' },
+                '안녕하세요! 무엇을 도와드릴까요?': { zh: '你好!有什么可以帮你的吗?', en: 'Hello! What can I help you with?', ja: 'こんにちは！何かお手伝いできることはありますか？', vi: 'Xin chào! Tôi có thể giúp gì cho bạn?' },
+                '我不知道下周的作业应该怎么做。': { ko: '다음 주 과제를 어떻게 해야 할지 모르겠어요.', en: 'I don\'t know how to do next week\'s homework.', ja: '来週の宿題をどうすればいいかわかりません。', vi: 'Tôi không biết làm thế nào để làm bài tập tuần tới.' },
+                '다음 주 과제를 어떻게 해야 할지 모르겠어요.': { zh: '我不知道下周的作业应该怎么做。', en: 'I don\'t know how to do next week\'s homework.', ja: '来週の宿題をどうすればいいかわかりません。', vi: 'Tôi không biết làm thế nào để làm bài tập tuần tới.' },
+                '과제에 대해 자세히 설명해드리겠습니다. 먼저 과제 주제를 확인해보겠습니다.': { zh: '我会详细解释作业。首先让我确认一下作业主题。', en: 'I will explain the homework in detail. Let me first check the assignment topic.', ja: '宿題について詳しく説明します。まず宿題のテーマを確認します。', vi: 'Tôi sẽ giải thích chi tiết về bài tập. Để tôi kiểm tra chủ đề bài tập trước.' },
+                '감사합니다!': { zh: '谢谢!', en: 'Thank you!', ja: 'ありがとうございます！', vi: 'Cảm ơn bạn!' },
+                '谢谢!': { ko: '감사합니다!', en: 'Thank you!', ja: 'ありがとうございます！', vi: 'Cảm ơn bạn!' }
+            };
+            
+            // 실제로는 Google Translate API 등을 사용해야 합니다
+            // 여기서는 간단한 번역 매핑 사용
+            if (translations[text] && translations[text][toLang]) {
+                return translations[text][toLang];
+            }
+            
+            // 기본 번역 표시
+            return `[번역: ${text}]`;
+        }
+        
+        // 채팅 메시지 추가 함수
+        function addChatMessage(text, isProf, translatedText = null) {
+            const chatMessages = document.getElementById('chatMessages');
+            const welcomeMsg = chatMessages.querySelector('.welcome-message');
+            if (welcomeMsg) {
+                welcomeMsg.remove();
+            }
+            
+            const now = new Date();
+            const timeString = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isProf ? 'professor' : 'student'}`;
+            
+            let messageHTML = `
+                <div class="message-bubble ${isProf ? 'professor' : 'student'}">
+                    <div class="message-time">${timeString}</div>
+                    <div class="message-original">${text}</div>
+            `;
+            
+            if (translatedText) {
+                messageHTML += `<div class="message-translated">${translatedText}</div>`;
+            }
+            
+            messageHTML += `</div>`;
+            messageDiv.innerHTML = messageHTML;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 채팅 전송 (교수자 메시지)
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            const studentLang = document.getElementById('studentLang').value;
+            
+            // 교수자 메시지 (한국어) - 학생 언어로 번역
+            const translated = translateText(message, 'ko', studentLang);
+            addChatMessage(message, true, translated);
+            
+            chatInput.value = '';
+        }
+        
+        if (sendBtn) {
+            sendBtn.addEventListener('click', sendMessage);
+        }
+        
+        if (chatInput) {
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+        
+        // 예시 대화 메시지 로드
+        function loadExampleMessages() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) {
+                console.error('chatMessages 요소를 찾을 수 없습니다.');
+                return;
+            }
+            
+            // 기존 메시지 초기화
+            chatMessages.innerHTML = '';
+            
+            const studentLangSelect = document.getElementById('studentLang');
+            const langCode = studentLangSelect ? studentLangSelect.value : 'zh';
+            
+            console.log('예시 메시지 로드 시작, 언어:', langCode);
+            
+            // 예시 대화 메시지들
+            const exampleMessages = [
+                {
+                    text: langCode === 'zh' ? '老师您好!' : (langCode === 'ko' ? '안녕하세요, 선생님!' : 'Hello, teacher!'),
+                    isProf: false,
+                    time: '14:30'
+                },
+                {
+                    text: '안녕하세요! 무엇을 도와드릴까요?',
+                    isProf: true,
+                    time: '14:30'
+                },
+                {
+                    text: langCode === 'zh' ? '我不知道下周的作业应该怎么做。' : (langCode === 'ko' ? '다음 주 과제를 어떻게 해야 할지 모르겠어요.' : 'I don\'t know how to do next week\'s homework.'),
+                    isProf: false,
+                    time: '14:31'
+                },
+                {
+                    text: '과제에 대해 자세히 설명해드리겠습니다. 먼저 과제 주제를 확인해보겠습니다.',
+                    isProf: true,
+                    time: '14:31'
+                },
+                {
+                    text: langCode === 'zh' ? '谢谢!' : (langCode === 'ko' ? '감사합니다!' : 'Thank you!'),
+                    isProf: false,
+                    time: '14:32'
+                }
+            ];
+            
+            // 메시지들을 순차적으로 추가 (약간의 딜레이를 두고)
+            exampleMessages.forEach((msg, index) => {
+                setTimeout(() => {
+                    try {
+                        const translated = translateText(msg.text, msg.isProf ? 'ko' : langCode, msg.isProf ? langCode : 'ko');
+                        addChatMessageWithTime(msg.text, msg.isProf, translated, msg.time);
+                    } catch (error) {
+                        console.error('메시지 추가 오류:', error);
+                    }
+                }, index * 400);
+            });
+        }
+        
+        // 시간을 지정하여 메시지 추가
+        function addChatMessageWithTime(text, isProf, translatedText = null, timeString) {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) {
+                console.error('chatMessages 요소를 찾을 수 없습니다.');
+                return;
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isProf ? 'professor' : 'student'}`;
+            
+            let messageHTML = `
+                <div class="message-bubble ${isProf ? 'professor' : 'student'}">
+                    <div class="message-time">${timeString}</div>
+                    <div class="message-original">${text}</div>
+            `;
+            
+            if (translatedText) {
+                messageHTML += `<div class="message-translated">${translatedText}</div>`;
+            }
+            
+            messageHTML += `</div>`;
+            messageDiv.innerHTML = messageHTML;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 상담 종료 버튼
+        const endCounselBtn = document.getElementById('endCounselBtn');
+        const statusMessageOverlay = document.getElementById('statusMessageOverlay');
+        const statusMessageText = document.getElementById('statusMessageText');
+        const translationStatus = document.querySelector('.translation-status');
+        
+        if (endCounselBtn && statusMessageOverlay && statusMessageText) {
+            endCounselBtn.addEventListener('click', () => {
+                console.log('상담 종료 버튼 클릭됨');
+                
+                // 1단계: 상담 종료 메시지
+                statusMessageText.textContent = '상담이 종료됩니다';
+                statusMessageOverlay.style.display = 'flex';
+                
+                // 번역 상태 숨기기
+                if (translationStatus) {
+                    translationStatus.style.opacity = '0.5';
+                }
+                
+                // 2초 후 저장 중 메시지로 변경
+                setTimeout(() => {
+                    if (statusMessageText) {
+                        statusMessageText.textContent = '상담 내용을 저장중입니다..';
+                    }
+                    
+                    // 3초 후 완료 및 화면 정리
+                    setTimeout(() => {
+                        if (statusMessageOverlay) {
+                            statusMessageOverlay.style.display = 'none';
+                        }
+                        if (translationStatus) {
+                            translationStatus.style.opacity = '1';
+                        }
+                        // 여기에 실제 저장 로직 추가 가능
+                    }, 3000);
+                }, 2000);
+            });
+        } else {
+            console.error('상담 종료 버튼 또는 오버레이 요소를 찾을 수 없습니다.');
+        }
+        
+        // 초기화 함수
+        function initializePage() {
+            try {
+                // 초기화 로직
+            } catch (error) {
+                console.error('초기화 오류:', error);
+            }
+        }
+        
+        // DOM이 로드되면 실행
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePage);
+        } else {
+            // 이미 로드된 경우 즉시 실행
+            initializePage();
+        }
+    </script>
+</body>
+</html>
+

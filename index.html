@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CJU-EDELWEIS - 교수 대시보드</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header class="top-header">
+        <div class="container">
+            <div class="logo-section">
+                <img src="img/logo_wave.png" alt="청주대학교">
+            </div>
+            <nav class="top-nav">
+                <a href="#">최미나님 방문을 환영합니다</a>
+                <span class="divider">|</span>
+                <a href="#">MY PAGE</a>
+                <span class="divider">|</span>
+                <a href="#">로그아웃</a>
+                <span class="divider">|</span>
+                <a href="#">사용자 가이드</a>
+                <span class="divider">|</span>
+                <a href="#">Language</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 네비게이션 -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo_edel.png" alt="EDELWEIS">
+            </div>
+            <ul class="menu">
+                <li><a href="#">소개</a></li>
+                <li><a href="#">MY PAGE</a></li>
+                <li><a href="#">COUNSEL/CAIR</a></li>
+                <li><a href="#">CJ MOOC</a></li>
+                <li><a href="#">OER</a></li>
+                <li><a href="#">OCW</a></li>
+                <li><a href="qa-professor.html">Q&A</a></li>
+                <li><a href="#">대학일자리플러스센터</a></li>
+                <li><a href="#">Meta-Life,CJU</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero 섹션 (배경 이미지 + 4개 박스) -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-grid">
+                <!-- 1. 교수 프로필 -->
+                <div class="profile-box">
+                    <div class="profile-bg">
+                        <div class="profile-dept">교직과</div>
+                        <div class="profile-photo">
+                            <img src="img/교수프로필.png" alt="교수 프로필">
+                        </div>
+                        <div class="profile-name">김청주 <span>교수</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. 상담·지도 관리현황 -->
+                <div class="counsel-box">
+                    <div class="box-header blue">
+                        <h3>상담 · 지도 관리현황</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="counsel-tabs">
+                        <button class="ctab active">전체</button>
+                        <button class="ctab">1학년</button>
+                        <button class="ctab">2학년</button>
+                        <button class="ctab">3학년</button>
+                        <button class="ctab">4학년</button>
+                    </div>
+                    <div class="counsel-items">
+                        <div class="counsel-item">
+                            <span class="label">상담 미실시자</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">상담완료</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">방문예약 상담</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">온라인 답변 요청</span>
+                            <span class="value red">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 달력 -->
+                <div class="calendar-box">
+                    <div class="calendar-controls">
+                        <button class="cal-nav" id="prevMonth">‹</button>
+                        <h3 class="cal-month" id="currentMonth">2025. 11</h3>
+                        <button class="cal-nav" id="nextMonth">›</button>
+                        <button class="cal-menu">☰</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="cal-header">
+                            <div class="cal-day sun">SUN</div>
+                            <div class="cal-day">MON</div>
+                            <div class="cal-day">TUE</div>
+                            <div class="cal-day">WED</div>
+                            <div class="cal-day">THU</div>
+                            <div class="cal-day">FRI</div>
+                            <div class="cal-day sat">SAT</div>
+                        </div>
+                        <div class="cal-body" id="calendarDays"></div>
+                    </div>
+                </div>
+
+                <!-- 4. 공지사항 -->
+                <div class="notice-box">
+                    <div class="box-header blue">
+                        <h3>공지사항</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="notice-items">
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 02분반(조기취업자) 사이버…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 사이버강의 기말고사 시험…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2학기 학과 체험 프로그램…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.13</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025학년도 전공탐색 설명회 안내</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.10</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">[정상복구] 실시간 비대면 학습(w…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.06</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하단 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 교수역량진단 & 강의스타일 -->
+            <div class="dual-cards">
+                <div class="feature-card red-card">
+                    <div class="card-left">
+                        <h3>교수역량진단</h3>
+                        <div class="card-icon">📋</div>
+                    </div>
+                    <div class="card-body">
+                        <p>2025년 교수역량진단에 참여해주세요</p>
+                    </div>
+                    <button class="card-action">진단하기 →</button>
+                </div>
+
+                <div class="feature-card blue-card">
+                    <div class="card-left">
+                        <h3>강의스타일</h3>
+                        <div class="card-icon">💡</div>
+                    </div>
+                    <div class="card-body">
+                        <p>최미나 교수님의 강의스타일은 <strong>'전문가(Expert)'</strong> 입니다.</p>
+                    </div>
+                    <button class="card-action">진단하기 →</button>
+                </div>
+            </div>
+
+            <!-- 교수님 알림 -->
+            <section class="prof-notice-section">
+                <div class="section-head">
+                    <h2>교수님 알림</h2>
+                    <a href="#" class="more">공지사항 더보기 +</a>
+                </div>
+                <div class="notice-list-area">
+                    <div class="notice-full-row">
+                        <span class="row-num">1.</span>
+                        <span class="row-icon">📎</span>
+                        <span class="row-text">2025-2 티칭포트폴리오(신청기간 11/13~23, 본문 링크에서 신청 바랍니다)</span>
+                        <span class="row-date">11.13</span>
+                    </div>
+                    <div class="notice-full-row">
+                        <span class="row-num">2.</span>
+                        <span class="row-text">2025학년도 CJU 교원의 AI·디지털 역량 진단 참여 안내(진단참여 기간 11/16(일)까지)</span>
+                        <span class="row-date">11.04</span>
+                    </div>
+                    <div class="notice-full-row">
+                        <span class="row-num">3.</span>
+                        <span class="row-text">[실습특강] 수업과 연구의 생산성을 높여주는 필수 AI툴 활용법_오늘부터 신청가능</span>
+                        <span class="row-date">10.28</span>
+                    </div>
+                    <div class="notice-full-row">
+                        <span class="row-num">4.</span>
+                        <span class="row-text">[온라인특강] 배움과 성장을 촉진하는 학습자와의 상호작용 전략</span>
+                        <span class="row-date">10.22</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 학생 관리 / 상담 -->
+            <section class="course-section student-counsel-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">학생 <span class="blue-text">상담</span></h2>
+                </div>
+                <div class="course-title-bar">
+                    <div class="section-title">
+                        <span class="checkbox-icon">☐</span> 교수자 <span class="blue-text"></span>
+                    </div>
+                    <button class="polytalk-btn" id="openPolyTalkBtn">
+                        다국어 상담
+                    </button>
+                </div>
+                <table class="course-table">
+                    <thead>
+                        <tr>
+                            <th>학생명</th>
+                            <th>학번</th>
+                            <th>학년</th>
+                            <th>전공</th>
+                            <th>최근 상담일</th>
+                            <th>상담 현황</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>김민수</td>
+                            <td>20210101</td>
+                            <td>3학년</td>
+                            <td>컴퓨터공학</td>
+                            <td>2025.11.15</td>
+                            <td><button class="detail-btn view-student-detail" data-student-name="김민수" data-student-id="20210101" data-grade="3학년" data-major="컴퓨터공학" data-email="minsu.kim@cju.ac.kr" data-phone="010-1234-5678">상세보기</button></td>
+                        </tr>
+                        <tr>
+                            <td>이지은</td>
+                            <td>20220202</td>
+                            <td>2학년</td>
+                            <td>경영학과</td>
+                            <td>2025.11.10</td>
+                            <td><button class="detail-btn view-student-detail" data-student-name="이지은" data-student-id="20220202" data-grade="2학년" data-major="경영학과" data-email="jieun.lee@cju.ac.kr" data-phone="010-2345-6789">상세보기</button></td>
+                        </tr>
+                        <tr>
+                            <td>박준호</td>
+                            <td>20210303</td>
+                            <td>3학년</td>
+                            <td>전자공학</td>
+                            <td>2025.11.08</td>
+                            <td><button class="detail-btn view-student-detail" data-student-name="박준호" data-student-id="20210303" data-grade="3학년" data-major="전자공학" data-email="junho.park@cju.ac.kr" data-phone="010-3456-7890">상세보기</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 교과·과정 -->
+            <section class="course-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">교과<span class="blue-text">과정</span></h2>
+                </div>
+                <div class="course-title-bar">
+                    <div class="section-title">
+                        <span class="checkbox-icon">☐</span> 강의 <span class="blue-text">교과</span>
+                    </div>
+                    <select class="semester-select">
+                        <option>2025년-2학기</option>
+                    </select>
+                </div>
+                <div class="section-toolbar">
+                    <div class="toolbar-right">
+                        <span class="filter-label">구분</span>
+                        <select class="filter-select">
+                            <option>전체</option>
+                        </select>
+                        <span class="filter-label">학년</span>
+                        <select class="filter-select">
+                            <option>전체</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="course-table">
+                    <thead>
+                        <tr>
+                            <th>교과목 명</th>
+                            <th>분반</th>
+                            <th>이수<br>구분</th>
+                            <th>학점</th>
+                            <th>학수번호</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>교육방법및교육공학</td>
+                            <td>01</td>
+                            <td>교직</td>
+                            <td>2.0</td>
+                            <td>0003860</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                        <tr>
+                            <td>교육방법및교육공학</td>
+                            <td>02</td>
+                            <td>교직</td>
+                            <td>2.0</td>
+                            <td>0003860</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                        <tr>
+                            <td>스마트학습환경과에듀테크</td>
+                            <td>01</td>
+                            <td>교선</td>
+                            <td>2.0</td>
+                            <td>0012854</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                        <tr>
+                            <td>스마트학습환경과에듀테크</td>
+                            <td>02</td>
+                            <td>교선</td>
+                            <td>2.0</td>
+                            <td>0012854</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 비교과 프로그램 현황 -->
+            <section class="program-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">비교과 <span class="blue-text">프로그램 현황</span></h2>
+                </div>
+                <div class="section-toolbar">
+                    <div class="toolbar-left">
+                        <button class="tab-btn active">비교과</button>
+                        <button class="tab-btn">온라인 비교과</button>
+                        <button class="tab-btn">법정교육</button>
+                    </div>
+                </div>
+                <table class="program-table">
+                    <thead>
+                        <tr>
+                            <th>프로그램 명</th>
+                            <th>진행기간</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" class="empty-message">등록된 비교과 프로그램이 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 교수 지원 -->
+            <section class="support-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">교수 <span class="blue-text">지원</span></h2>
+                </div>
+                <div class="course-title-bar">
+                    <div class="section-title">
+                        <span class="checkbox-icon">☐</span> 교수 대상 <span class="blue-text">전체 프로그램</span>
+                    </div>
+                </div>
+                <div class="section-toolbar">
+                    <div class="toolbar-left">
+                        <button class="tab-btn active">전체</button>
+                        <button class="tab-btn">교원 교육</button>
+                        <button class="tab-btn">교수학습개발 및 적용</button>
+                        <button class="tab-btn">교수모임지원</button>
+                        <button class="tab-btn">기타 교수학습지원</button>
+                        <button class="tab-btn">온라인 교수법</button>
+                        <button class="tab-btn">법정교육</button>
+                    </div>
+                </div>
+                <table class="support-table">
+                    <thead>
+                        <tr>
+                            <th>프로그램</th>
+                            <th>일시</th>
+                            <th>정원</th>
+                            <th>신청하기</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[수업컨설팅] 수업컨설팅</td>
+                            <td class="date-link">09.01 ~ 11.30</td>
+                            <td>21/30</td>
+                            <td><button class="apply-btn">신청하기</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- TOP 버튼 -->
+    <button class="top-button" id="topBtn">
+        <div>▲</div>
+        <div>TOP</div>
+    </button>
+
+    <!-- 학생 선택 모달 -->
+    <div id="studentSelectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>상담 가능 학생 목록</h2>
+                <button class="modal-close" id="closeStudentModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="student-search">
+                    <input type="text" class="search-input" placeholder="학생명 또는 학번 검색...">
+                    <button class="search-btn">검색</button>
+                </div>
+                <table class="modal-table">
+                    <thead>
+                        <tr>
+                            <th>학생명</th>
+                            <th>학번</th>
+                            <th>학년</th>
+                            <th>전공</th>
+                            <th>국적</th>
+                            <th>선택</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>김민수</td>
+                            <td>20210101</td>
+                            <td>3학년</td>
+                            <td>컴퓨터공학</td>
+                            <td>대한민국</td>
+                            <td><button class="select-student-btn" data-student="김민수" data-id="20210101" data-country="대한민국">선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>이지은</td>
+                            <td>20220202</td>
+                            <td>2학년</td>
+                            <td>경영학과</td>
+                            <td>대한민국</td>
+                            <td><button class="select-student-btn" data-student="이지은" data-id="20220202" data-country="대한민국">선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>박준호</td>
+                            <td>20210303</td>
+                            <td>3학년</td>
+                            <td>전자공학</td>
+                            <td>대한민국</td>
+                            <td><button class="select-student-btn" data-student="박준호" data-id="20210303" data-country="대한민국">선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>Li Wei</td>
+                            <td>20220404</td>
+                            <td>2학년</td>
+                            <td>경제학과</td>
+                            <td>중국</td>
+                            <td><button class="select-student-btn" data-student="Li Wei" data-id="20220404" data-country="중국">선택</button></td>
+                        </tr>
+                        <tr>
+                            <td>Nguyen Van A</td>
+                            <td>20210505</td>
+                            <td>3학년</td>
+                            <td>건축학과</td>
+                            <td>베트남</td>
+                            <td><button class="select-student-btn" data-student="Nguyen Van A" data-id="20210505" data-country="베트남">선택</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 학생 상세보기 페이지 -->
+    <div id="studentDetailPage" class="polytalk-page" style="display: none;">
+        <div class="polytalk-container">
+            <div class="polytalk-header">
+                <div class="polytalk-title">
+                    <h1>학생 상세 정보 및 상담 이력</h1>
+                    <button class="back-btn" id="backToMainFromDetail">← 돌아가기</button>
+                </div>
+            </div>
+
+            <div class="polytalk-body">
+                <!-- 학생 기본 정보 -->
+                <div class="student-info-card">
+                    <h2 class="section-title-detail">학생 기본 정보</h2>
+                    <div class="student-info-wrapper">
+                        <div class="student-photo-section">
+                            <div class="student-photo-container">
+                                <img id="detailStudentPhoto" src="img/FileController.jpeg" alt="학생 프로필 사진" class="student-photo">
+                            </div>
+                        </div>
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <span class="info-label-detail">이름</span>
+                            <span class="info-value-detail" id="detailStudentName">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label-detail">학번</span>
+                            <span class="info-value-detail" id="detailStudentId">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label-detail">학년</span>
+                            <span class="info-value-detail" id="detailGrade">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label-detail">전공</span>
+                            <span class="info-value-detail" id="detailMajor">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label-detail">이메일</span>
+                            <span class="info-value-detail" id="detailEmail">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label-detail">연락처</span>
+                            <span class="info-value-detail" id="detailPhone">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 상담 통계 -->
+                <div class="counsel-stats">
+                    <h2 class="section-title-detail">상담 통계</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">총 상담 횟수</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">이번 학기</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">45분</div>
+                            <div class="stat-label">평균 상담 시간</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">5일 전</div>
+                            <div class="stat-label">최근 상담</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 상담 이력 -->
+                <div class="counsel-history">
+                    <div class="history-title-bar">
+                        <h2 class="section-title-detail">상담 이력</h2>
+                        <div class="history-actions">
+                            <div class="sort-buttons">
+                                <button class="sort-btn active" id="sortNewest">최신순</button>
+                                <button class="sort-btn" id="sortOldest">과거순</button>
+                            </div>
+                            <button class="add-counsel-btn" id="openCounselFormBtn">+ 새 상담 기록 작성</button>
+                        </div>
+                    </div>
+                    
+                    <div id="counselHistoryList">
+                    <!-- 상담 기록 1 -->
+                    <div class="history-item" data-date="2025-11-15">
+                        <div class="history-header">
+                            <div class="history-date">
+                                <span class="history-date-badge">2025.11.15</span>
+                                <span class="time-badge">14:30 - 15:20</span>
+                                <span class="duration-badge">50분</span>
+                            </div>
+                            <span class="counsel-type-badge face">대면 상담</span>
+                        </div>
+                        <div class="history-content">
+                            <div class="content-header">
+                            <div class="counsel-topic">
+                                    <strong>상담 주제:</strong> 
+                                    <span class="topic-value">학업 계획 및 진로 상담</span>
+                                    <select class="topic-edit" style="display: none;">
+                                        <option value="학업 및 학습 관리">학업 및 학습 관리</option>
+                                        <option value="진로 및 취업 상담">진로 및 취업 상담</option>
+                                        <option value="대인관계 및 적응">대인관계 및 적응</option>
+                                        <option value="심리 및 정서 상담">심리 및 정서 상담</option>
+                                        <option value="수강신청 및 학사관리">수강신청 및 학사관리</option>
+                                        <option value="장학금 및 재정 지원">장학금 및 재정 지원</option>
+                                        <option value="휴학 및 복학 상담">휴학 및 복학 상담</option>
+                                        <option value="기타">기타</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="edit-counsel-btn">수정</button>
+                            </div>
+                            <div class="counsel-summary">
+                                <strong>상담 내용:</strong>
+                                <p class="summary-text">학생이 현재 전공 공부에 어려움을 겪고 있어 학습 방법에 대해 상담을 진행했습니다. 
+                                특히 프로그래밍 과목에서 어려움을 느끼고 있어, 기초부터 차근차근 다시 학습할 것을 권장했습니다. 
+                                또한 스터디 그룹 참여를 통해 동료들과 함께 학습하는 것을 제안했습니다.</p>
+                                <textarea class="summary-edit" style="display: none;">학생이 현재 전공 공부에 어려움을 겪고 있어 학습 방법에 대해 상담을 진행했습니다. 
+특히 프로그래밍 과목에서 어려움을 느끼고 있어, 기초부터 차근차근 다시 학습할 것을 권장했습니다. 
+또한 스터디 그룹 참여를 통해 동료들과 함께 학습하는 것을 제안했습니다.</textarea>
+                            </div>
+                            <div class="counsel-result">
+                                <strong>조치사항:</strong>
+                                <ul class="result-list">
+                                    <li>프로그래밍 기초 스터디 그룹 추천</li>
+                                    <li>학습자료 제공 (온라인 강의 링크)</li>
+                                    <li>다음 상담 예약: 2주 후</li>
+                                </ul>
+                                <textarea class="result-edit" style="display: none;">프로그래밍 기초 스터디 그룹 추천
+학습자료 제공 (온라인 강의 링크)
+다음 상담 예약: 2주 후</textarea>
+                            </div>
+                            <div class="edit-actions" style="display: none;">
+                                <button type="button" class="save-edit-btn">저장</button>
+                                <button type="button" class="cancel-edit-btn">취소</button>
+                            </div>
+                            <div class="counsel-status completed">
+                                <span class="status-icon">✓</span> 상담 완료
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 상담 기록 2 -->
+                    <div class="history-item" data-date="2025-10-28">
+                        <div class="history-header">
+                            <div class="history-date">
+                                <span class="history-date-badge">2025.10.28</span>
+                                <span class="time-badge">10:00 - 10:35</span>
+                                <span class="duration-badge">35분</span>
+                            </div>
+                            <span class="counsel-type-badge online">온라인 상담</span>
+                        </div>
+                        <div class="history-content">
+                            <div class="content-header">
+                            <div class="counsel-topic">
+                                    <strong>상담 주제:</strong> <span class="topic-value">중간고사 준비 및 학습 전략</span>
+                                </div>
+                                <button type="button" class="edit-counsel-btn">수정</button>
+                            </div>
+                            <div class="counsel-summary">
+                                <strong>상담 내용:</strong>
+                                <p class="summary-text">중간고사를 앞두고 시험 준비 방법에 대해 상담했습니다. 
+                                학생이 시간 관리에 어려움을 겪고 있어 과목별 학습 스케줄을 함께 작성했습니다. 
+                                우선순위가 높은 과목부터 집중적으로 학습할 수 있도록 계획을 세웠습니다.</p>
+                                <textarea class="summary-edit" style="display: none;">중간고사를 앞두고 시험 준비 방법에 대해 상담했습니다. 
+학생이 시간 관리에 어려움을 겪고 있어 과목별 학습 스케줄을 함께 작성했습니다. 
+우선순위가 높은 과목부터 집중적으로 학습할 수 있도록 계획을 세웠습니다.</textarea>
+                            </div>
+                            <div class="counsel-result">
+                                <strong>조치사항:</strong>
+                                <ul class="result-list">
+                                    <li>주간 학습 계획표 작성 완료</li>
+                                    <li>과목별 학습 우선순위 설정</li>
+                                    <li>시험 후 결과 공유 약속</li>
+                                </ul>
+                                <textarea class="result-edit" style="display: none;">주간 학습 계획표 작성 완료
+과목별 학습 우선순위 설정
+시험 후 결과 공유 약속</textarea>
+                            </div>
+                            <div class="edit-actions" style="display: none;">
+                                <button type="button" class="save-edit-btn">저장</button>
+                                <button type="button" class="cancel-edit-btn">취소</button>
+                            </div>
+                            <div class="counsel-status completed">
+                                <span class="status-icon">✓</span> 상담 완료
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 상담 기록 3 -->
+                    <div class="history-item" data-date="2025-10-05">
+                        <div class="history-header">
+                            <div class="history-date">
+                                <span class="history-date-badge">2025.10.05</span>
+                                <span class="time-badge">15:00 - 15:50</span>
+                                <span class="duration-badge">50분</span>
+                            </div>
+                            <span class="counsel-type-badge face">대면 상담</span>
+                        </div>
+                        <div class="history-content">
+                            <div class="content-header">
+                            <div class="counsel-topic">
+                                    <strong>상담 주제:</strong> <span class="topic-value">학교 적응 및 대인관계 상담</span>
+                                </div>
+                                <button type="button" class="edit-counsel-btn">수정</button>
+                            </div>
+                            <div class="counsel-summary">
+                                <strong>상담 내용:</strong>
+                                <p class="summary-text">신입생으로서 대학 생활 적응에 대한 어려움을 나누었습니다. 
+                                새로운 환경에서 친구를 사귀는 것에 어려움을 느끼고 있어, 
+                                동아리 활동이나 학과 행사 참여를 권장했습니다.</p>
+                                <textarea class="summary-edit" style="display: none;">신입생으로서 대학 생활 적응에 대한 어려움을 나누었습니다. 
+새로운 환경에서 친구를 사귀는 것에 어려움을 느끼고 있어, 
+동아리 활동이나 학과 행사 참여를 권장했습니다.</textarea>
+                            </div>
+                            <div class="counsel-result">
+                                <strong>조치사항:</strong>
+                                <ul class="result-list">
+                                    <li>학과 동아리 소개 및 추천</li>
+                                    <li>멘토-멘티 프로그램 신청 안내</li>
+                                    <li>학생 상담센터 연계</li>
+                                </ul>
+                                <textarea class="result-edit" style="display: none;">학과 동아리 소개 및 추천
+멘토-멘티 프로그램 신청 안내
+학생 상담센터 연계</textarea>
+                            </div>
+                            <div class="edit-actions" style="display: none;">
+                                <button type="button" class="save-edit-btn">저장</button>
+                                <button type="button" class="cancel-edit-btn">취소</button>
+                            </div>
+                            <div class="counsel-status completed">
+                                <span class="status-icon">✓</span> 상담 완료
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 상담 기록 4 -->
+                    <div class="history-item" data-date="2025-09-15">
+                        <div class="history-header">
+                            <div class="history-date">
+                                <span class="history-date-badge">2025.09.15</span>
+                                <span class="time-badge">13:30 - 14:10</span>
+                                <span class="duration-badge">40분</span>
+                            </div>
+                            <span class="counsel-type-badge phone">전화 상담</span>
+                        </div>
+                        <div class="history-content">
+                            <div class="content-header">
+                            <div class="counsel-topic">
+                                    <strong>상담 주제:</strong> <span class="topic-value">수강신청 및 학기 계획</span>
+                                </div>
+                                <button type="button" class="edit-counsel-btn">수정</button>
+                            </div>
+                            <div class="counsel-summary">
+                                <strong>상담 내용:</strong>
+                                <p class="summary-text">2학기 수강신청을 앞두고 어떤 과목을 선택해야 할지 고민하는 학생과 상담했습니다. 
+                                학생의 진로 목표와 관심 분야를 고려하여 적절한 과목을 추천했습니다.</p>
+                                <textarea class="summary-edit" style="display: none;">2학기 수강신청을 앞두고 어떤 과목을 선택해야 할지 고민하는 학생과 상담했습니다. 
+학생의 진로 목표와 관심 분야를 고려하여 적절한 과목을 추천했습니다.</textarea>
+                            </div>
+                            <div class="counsel-result">
+                                <strong>조치사항:</strong>
+                                <ul class="result-list">
+                                    <li>추천 과목 리스트 제공</li>
+                                    <li>학점 관리 방법 안내</li>
+                                    <li>선배 학생 연결</li>
+                                </ul>
+                                <textarea class="result-edit" style="display: none;">추천 과목 리스트 제공
+학점 관리 방법 안내
+선배 학생 연결</textarea>
+                            </div>
+                            <div class="edit-actions" style="display: none;">
+                                <button type="button" class="save-edit-btn">저장</button>
+                                <button type="button" class="cancel-edit-btn">취소</button>
+                            </div>
+                            <div class="counsel-status completed">
+                                <span class="status-icon">✓</span> 상담 완료
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 상담 기록 작성 모달 -->
+    <div id="counselFormModal" class="modal">
+        <div class="modal-content counsel-form-modal">
+            <div class="modal-header">
+                <h2>새 상담 기록 작성</h2>
+                <button class="modal-close" id="closeCounselFormModal">&times;</button>
+            </div>
+            <div class="modal-body counsel-form-body">
+                <form id="counselForm">
+                    <div class="form-section">
+                        <h3 class="form-section-title">기본 정보</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="counselDate">상담 날짜 <span class="required">*</span></label>
+                                <input type="date" id="counselDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="counselStartTime">시작 시간 <span class="required">*</span></label>
+                                <input type="time" id="counselStartTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="counselEndTime">종료 시간 <span class="required">*</span></label>
+                                <input type="time" id="counselEndTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="counselType">상담 유형 <span class="required">*</span></label>
+                                <select id="counselType" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="face">대면 상담</option>
+                                    <option value="online">온라인 상담</option>
+                                    <option value="phone">전화 상담</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">상담 내용</h3>
+                        <div class="form-group full-width">
+                            <label>상담 주제 <span class="required">*</span></label>
+                            <div class="topic-categories">
+                                <button type="button" class="topic-btn" data-topic="학업 및 학습 관리">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">학업 및 학습 관리</span>
+                                </button>
+                                <button type="button" class="topic-btn" data-topic="진로 및 취업 상담">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">진로 및 취업 상담</span>
+                                </button>
+                                <button type="button" class="topic-btn" data-topic="대인관계 및 적응">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">대인관계 및 적응</span>
+                                </button>
+                                <button type="button" class="topic-btn" data-topic="심리 및 정서 상담">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">심리 및 정서 상담</span>
+                                </button>
+                                <button type="button" class="topic-btn" data-topic="수강신청 및 학사관리">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                            <polyline points="10 9 9 9 8 9"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">수강신청 및 학사관리</span>
+                                </button>
+                                <button type="button" class="topic-btn" data-topic="장학금 및 재정 지원">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">장학금 및 재정 지원</span>
+                                </button>
+                                <button type="button" class="topic-btn" data-topic="휴학 및 복학 상담">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">휴학 및 복학 상담</span>
+                                </button>
+                                <button type="button" class="topic-btn" data-topic="기타">
+                                    <span class="topic-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                    </span>
+                                    <span class="topic-text">기타</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="counselTopic" required>
+                            <small class="form-help topic-selected-msg" style="display: none; color: #3682D7; font-weight: 600;">
+                                ✓ 선택됨: <span id="selectedTopicText"></span>
+                            </small>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="counselSummary">상담 내용 <span class="required">*</span></label>
+                            <textarea id="counselSummary" rows="6" placeholder="상담 과정과 논의된 내용을 자세히 작성해주세요..." required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="counselResult">조치사항</label>
+                            <textarea id="counselResult" rows="4" placeholder="후속 조치 사항을 작성해주세요. 줄바꿈으로 항목을 구분합니다."></textarea>
+                            <small class="form-help">각 항목을 줄바꿈으로 구분하면 자동으로 목록으로 변환됩니다.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="form-btn cancel-btn" id="cancelCounselForm">취소</button>
+                        <button type="submit" class="form-btn submit-btn">저장하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 상담 기록 페이지 -->
+    <div id="counselRecordPage" class="polytalk-page" style="display: none;">
+        <div class="polytalk-container">
+            <div class="polytalk-header">
+                <div class="polytalk-title">
+                    <h1>상담 기록</h1>
+                    <button class="back-btn" id="backToMainFromRecord">← 돌아가기</button>
+                </div>
+                <div class="record-info-bar">
+                    <div class="info-item">
+                        <span class="info-label">학생명:</span>
+                        <span class="info-value" id="recordStudentName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">학번:</span>
+                        <span class="info-value" id="recordStudentId">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">상담일시:</span>
+                        <span class="info-value" id="recordDateTime">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">상담시간:</span>
+                        <span class="info-value" id="recordDuration">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="polytalk-body">
+                <div class="record-content">
+                    <div class="record-section">
+                        <h3>상담 내용 (한국어)</h3>
+                        <div class="record-text-box" id="recordKorean"></div>
+                    </div>
+                    <div class="record-section">
+                        <h3>상담 내용 (번역본)</h3>
+                        <div class="record-text-box" id="recordTranslated"></div>
+                    </div>
+                    <div class="record-actions">
+                        <button class="action-btn export-btn">
+                            PDF로 내보내기
+                        </button>
+                        <button class="action-btn print-btn">
+                            인쇄
+                        </button>
+                        <button class="action-btn email-btn">
+                            이메일 전송
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
